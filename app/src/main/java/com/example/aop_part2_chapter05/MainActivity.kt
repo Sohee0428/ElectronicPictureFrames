@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initAddPhotoBtn()
-
+        initStartPhotoFrameModeBtn()
     }
 
     private fun initAddPhotoBtn() {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
 //                    todo 교육용 팝업 확인 후 권한 팝업을 띄우는 기능
 
-
+                    showPermissionContextPopup()
                 }
                 else -> {
                     requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
@@ -47,5 +47,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showPermissionContextPopup() {
+        AlertDialog.Builder(this)
+                .setTitle("권한이 필요합니다.")
+                .setMessage("전자 액자에 앱에서 사진을 불러오기 위해 권한이 필요합니다.")
+                .setPositiveButton("동의하기") { _, _ ->
+                    requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
+                }
+                .setNegativeButton("취소하기") { _, _ -> }
+                .create()
+                .show()
+    }
 
+    private fun initStartPhotoFrameModeBtn() {
+
+    }
 }
