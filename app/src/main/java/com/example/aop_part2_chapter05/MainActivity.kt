@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val imageUriList: MutableList<Uri> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -99,9 +101,19 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
 
-
+        if (resultCode != Activity.RESULT_OK){
+            return
+        }
         when(requestCode){
             2000 -> {
+                val selectedImageUri: Uri? = data?.data
+                if(selectedImageUri != null){
+                    imageUriList.add(selectedImageUri)
+                    imageViewList[imageUriList.size - 1].setImageURI(selectedImageUri)
+
+                }else{
+                    Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
 
             }
             else -> {
