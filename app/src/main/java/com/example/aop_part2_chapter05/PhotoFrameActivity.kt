@@ -12,12 +12,17 @@ class PhotoFrameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_frame)
 
-        val size = intent.getIntExtra("photoListSize",0)
+        getPhotoUriPromIntent()
+
+    }
+
+
+    private fun getPhotoUriPromIntent() {
+        val size = intent.getIntExtra("photoListSize", 0)
         for (i in 0..size) {
             intent.getStringExtra("photo$i")?.let {
                 photoList.add(Uri.parse(it))
             }
         }
-
     }
 }
