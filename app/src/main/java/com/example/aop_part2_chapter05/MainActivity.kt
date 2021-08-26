@@ -107,11 +107,17 @@ class MainActivity : AppCompatActivity() {
         when(requestCode){
             2000 -> {
                 val selectedImageUri: Uri? = data?.data
-                if(selectedImageUri != null){
+                if (selectedImageUri != null) {
+
+                    if (imageUriList.size == 6) {
+                        Toast.makeText(this, "이미 사진이 꽉 찼습니다.", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+
                     imageUriList.add(selectedImageUri)
                     imageViewList[imageUriList.size - 1].setImageURI(selectedImageUri)
 
-                }else{
+                } else {
                     Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
                 }
 
