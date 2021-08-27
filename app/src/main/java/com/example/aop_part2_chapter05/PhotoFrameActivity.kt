@@ -61,4 +61,19 @@ class PhotoFrameActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        timer?.cancel()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startTimer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
+    }
 }
