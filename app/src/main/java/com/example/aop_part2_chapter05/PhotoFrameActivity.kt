@@ -27,6 +27,9 @@ class PhotoFrameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_frame)
+
+        Log.d("PhotoFrame","onCreate")
+
         getPhotoUriPromIntent()
     }
 
@@ -43,6 +46,9 @@ class PhotoFrameActivity : AppCompatActivity() {
     private fun startTimer(){
         timer= timer(period = 5000) {
             runOnUiThread {
+
+                Log.d("PhotoFrame","5초 지나감")
+
                 val current = currentPosition
                 val next = if(photoList.size <= currentPosition +1) 0 else currentPosition + 1
 
@@ -64,16 +70,25 @@ class PhotoFrameActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+
+        Log.d("PhotoFrame","onStop timer cancel")
+
         timer?.cancel()
     }
 
     override fun onStart() {
         super.onStart()
+
+        Log.d("PhotoFrame","onStart timer start")
+
         startTimer()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
+        Log.d("PhotoFrame","onDestroy timer cancel")
+
         timer?.cancel()
     }
 }
