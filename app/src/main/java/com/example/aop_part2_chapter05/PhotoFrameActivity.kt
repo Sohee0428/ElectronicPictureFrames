@@ -25,6 +25,7 @@ class PhotoFrameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_photo_frame)
 
         getPhotoUriPromIntent()
+        startTimer()
 
     }
 
@@ -34,6 +35,29 @@ class PhotoFrameActivity : AppCompatActivity() {
         for (i in 0..size) {
             intent.getStringExtra("photo$i")?.let {
                 photoList.add(Uri.parse(it))
+            }
+        }
+    }
+
+    private fun startTimer(){
+        timer(period = 5000) {
+            runOnUiThread {
+
+                val current = currentPosition
+                val next = if(photoList.size <= currentPosition +1) 0 else currentPosition + 1
+
+                backgroundPhotoImageView.setImageURI(photoList[current])
+
+                photoImageView.alpha = 0f
+                // 투명도
+                photoImageView.setImageURI(photoList[next])
+                photoImageView.animate()
+                    .alpha(1.0f)
+                    .setDuration(1000)
+                    .start()
+
+                currentPosition = next
+
             }
         }
     }
